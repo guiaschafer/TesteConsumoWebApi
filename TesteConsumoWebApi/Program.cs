@@ -20,25 +20,25 @@ namespace TesteConsumoWebApi
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:64349/aluno/");
+                client.BaseAddress = new Uri("http://webapisistemastrabalhofinal.azurewebsites.net");
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("apllication/json"));
 
                 var t = new Aluno()
                 {
-                    Nome = "Guilherme",
+                    Nome = "Rodrigo",
                     Idade = 18
                 };
 
-                //WebApi POST
-                HttpResponseMessage response = await client.PostAsJsonAsync("cadastrarAluno", t);
+                ////WebApi POST
+                HttpResponseMessage response = await client.PostAsJsonAsync("/aluno/cadastrarAluno", t);
 
-                
+
                 //WebApi GET
-                response = await client.GetAsync("buscar");
+                response = await client.GetAsync("aluno/buscar");
 
                 //Resposta vira uma string 
-                var r = await response.Content.ReadAsAsync<Aluno>();
+                var r = await response.Content.ReadAsAsync<List<Aluno>>();
 
                 //Utilizando o ReadAsAsync, precisamos ter uma classe que contem os atribuitos com o mesmo nome da resposta
                 //var r = await response.Content.ReadAsAsync<T>();;
